@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>register</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-img src="../assets/images/xochi1.jpeg"></ion-img>
+<ion-content class="ion-padding">
+ 
+  <ion-row>
+    <ion-col size="12" size-sm="10" offset-sm="1" size-md="8" offset-md="2" size-lg="6" offset-lg="3" size-xl="4"
+      offset-xl="4">
+ 
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title class="ion-text-center">Registrar</ion-card-title>
+        </ion-card-header>
+ 
+        <ion-card-content>
+          <form (submit)="register()">
+            <ion-item lines="none">
+              <ion-label position="stacked">Nombre: </ion-label>
+              <ion-input name="name" type="text" placeholder="Ingresa tu nombre" [(ngModel)]="user.name"></ion-input>
+            </ion-item>
+  
+            <ion-item lines="none">
+              <ion-label position="stacked">Apellido Paterno: </ion-label>
+              <ion-input name="first_surname" type="text" placeholder="Ingresa tu apellido" [(ngModel)]="user.first_surname"></ion-input>
+            </ion-item>
+
+            <ion-item lines="none">
+              <ion-label position="stacked">Apellido Materno: </ion-label>
+              <ion-input name="second_surname" type="text" placeholder="Ingresa tu apellido" [(ngModel)]="user.second_surname"></ion-input>
+            </ion-item>
+   
+            <ion-item lines="none">
+              <ion-label position="stacked">Correo: </ion-label>
+              <ion-input name="email" type="email" placeholder="Ingresa tu correo" [(ngModel)]="user.email"></ion-input>
+            </ion-item>
+   
+            <ion-item lines="none">
+              <ion-label position="stacked">Contraseña:</ion-label>
+              <ion-input name="password" type="password" placeholder="Ingresa tu contraseña" [(ngModel)]="user.password">
+              </ion-input>
+            </ion-item>
+   
+            <ion-button type="submit" expand="block">Login</ion-button>
+          </form>
+        </ion-card-content>
+      </ion-card>
+ 
+    </ion-col>
+  </ion-row>
+ 
+</ion-content>
