@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {
@@ -21,11 +22,13 @@ const routes: Routes = [
   },
   {
     path: 'agendar',
-    loadChildren: () => import('./pages/agendar/agendar.module').then( m => m.AgendarPageModule)
+    loadChildren: () => import('./pages/agendar/agendar.module').then( m => m.AgendarPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'reservaciones',
-    loadChildren: () => import('./pages/reservaciones/reservaciones.module').then( m => m.ReservacionesPageModule)
+    loadChildren: () => import('./pages/reservaciones/reservaciones.module').then( m => m.ReservacionesPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',

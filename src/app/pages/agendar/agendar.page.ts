@@ -1,8 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonDatetime } from '@ionic/angular';
-import { format, parseISO } from 'date-fns';
-import { AgendarModel } from 'src/app/models/agendar.model';
+import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { VisitRequest } from 'src/app/interfaces/visit';
+import { AgendacionesService } from 'src/app/services/agendaciones.service';
 
 @Component({
   selector: 'app-agendar',
@@ -10,27 +9,19 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./agendar.page.scss'],
 })
 export class AgendarPage implements OnInit {
-  @ViewChild(IonDatetime, { static: true }) datetime: IonDatetime;
-
-  agendar: AgendarModel = new AgendarModel();
-
-  dateValue2 = '';
-
-  constructor(public alertController: AlertController) { }
-
-  ngOnInit() {
+  
+  visit: VisitRequest = {
+    'name': '',
+    'date': new Date,
+    'persons': '0',
+    'hour': ''
   }
 
-  // confirm() {
-  //   this.datetime.citaspage.confirm();
-  // }
-  
-  // reset() {
-  //   this.datetime.nativeEl.reset();
-  // }
+  constructor(
+    private agendar: AgendacionesService,
+    public alertController: AlertController) { }
 
-  formatDate(value: string) {
-    return format(parseISO(value), 'MMM dd yyyy');
+  ngOnInit() {
   }
 
   async presentAlertConfirm() {
@@ -60,4 +51,18 @@ export class AgendarPage implements OnInit {
     await alert.present();
   }
 
+  guardar() {
+
+    this.agendar.saveVisit(this.visit).subscribe(
+      resp => {
+        console.log(resp);
+        
+      }, error => {
+        console.log(error);
+        
+      }
+    )
+    console.log(this.visit);
+    
+  }
 }

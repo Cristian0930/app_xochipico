@@ -1,60 +1,33 @@
-<app-header [titulo]="titulo || 'Agendar'"></app-header>
+<app-header [titulo]="'Agendar'"></app-header>
 
 <ion-content>
   <ion-card>
     <img src="../assets/images/xochi1.jpeg" />
-    <ion-item>
-      <ion-label position="fixed">Nombre:</ion-label>
-      <ion-input [(ngModel)]="agendar.name" type="text" placeholder="Ingresa tu nombre" pattern="[A-Za-z]+" required></ion-input>
-    </ion-item>
-
-    <ion-list>
-      <ion-item>
-        <ion-label position="fixed">Fecha:</ion-label>
-        <ion-input [(ngModel)]="agendar.date" [value]="dateValue2" placeholder="Selecciona una fecha"></ion-input>
-        <ion-button fill="clear" id="open-date-input-2">
-          <ion-icon icon="calendar" color="warning"></ion-icon>
-        </ion-button>
-        <ion-popover trigger="open-date-input-2" show-backdrop="false">
-          <ng-template>
-            <ion-datetime
-              #popoverDatetime2
-              presentation="date"
-              (ionChange)="dateValue2 = formatDate(popoverDatetime2.value)"
-            ></ion-datetime>
-          </ng-template>
-        </ion-popover>
-      </ion-item>
-    </ion-list>
-  
-    <!-- <ion-item>
-      <ion-datetime hourCycle="h23"></ion-datetime>
-    </ion-item>
-    <ion-item>
-      <ion-label>Time</ion-label>
-      <ion-datetime displayFormat="h:mm A"></ion-datetime>
-    </ion-item> -->
-  
-    <ion-item>
-      <ion-label>Personas a asistir:</ion-label>
-      <ion-input [(ngModel)]="agendar.persons" placeholder="Ingresa un número" type="number" maxlength="2" required></ion-input>
-    </ion-item>
-
-    <br>
-      <div class="col">
-          <form (ngSubmit)="guardar( form )" #form="ngForm">
-              <div class="form-group text-center">
-                  <ion-button (click)="presentAlertConfirm()" type="submit" class="btns btn-success w-25" color="success" style="float: right;">
-                  <i class="fa fa-save"></i>
-                  Guardar
-                  </ion-button>
-              </div>
-          </form>
-      </div>
     
+    <form (ngSubmit)="guardar()">
+      <ion-list>
+        <ion-item>
+          <ion-label position="fixed">Nombre:</ion-label>
+          <ion-input [(ngModel)]="visit.name" name="name" type="text" placeholder="Ingresa tu nombre" pattern="[A-Za-z]+" required></ion-input>
+        </ion-item>
+      
+        <ion-item>
+          <ion-label>Personas a asistir:</ion-label>
+          <ion-input [(ngModel)]="visit.persons" name="persons" placeholder="Ingresa un número" type="number" required></ion-input>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label>Fecha:</ion-label>
+          <ion-input [(ngModel)]="visit.date" name="date" type="date" required></ion-input>
+        </ion-item>
 
+        <ion-item>
+          <ion-label>Hora:</ion-label>
+          <ion-input [(ngModel)]="visit.hour" name="hour" type="time" required></ion-input>
+        </ion-item>
+
+        <ion-button type="submit" expand="block">Guardar</ion-button>
+      </ion-list>
+    </form>
   </ion-card>
-
-  
-  
 </ion-content>  

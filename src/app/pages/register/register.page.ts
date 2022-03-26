@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
-import { UserRequest } from 'src/app/models/user.model';
+import { AlertController, LoadingController } from '@ionic/angular';
+import { UserRequest } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -10,27 +10,30 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class RegisterPage implements OnInit {
 
+  loading: any;
+
   user: UserRequest = {
     name: '',
-    first_surname: '',
-    second_surname: '',
     email: '',
-    password: ''
+    password: '',
+    password_confirmation: ''
   }
 
   constructor(
     private AuthService : AuthService,
-    public alertController: AlertController
+    public alertController: AlertController,
+    public loadingController: LoadingController
     ) { }
 
   ngOnInit() {
   }
 
   register() {
+    
     this.AuthService.register(this.user).subscribe(
       resp => {
         console.log(resp);
-        // todo bien
+        // todo bien        
         this.alerta('Usuario registrado', 'Ya puedes iniciar sesión');
       }, error => {
         console.log(error);

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>register</ion-title>
+    <ion-title>Registrate</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -22,16 +22,6 @@
               <ion-label position="stacked">Nombre: </ion-label>
               <ion-input name="name" type="text" placeholder="Ingresa tu nombre" [(ngModel)]="user.name"></ion-input>
             </ion-item>
-  
-            <ion-item lines="none">
-              <ion-label position="stacked">Apellido Paterno: </ion-label>
-              <ion-input name="first_surname" type="text" placeholder="Ingresa tu apellido" [(ngModel)]="user.first_surname"></ion-input>
-            </ion-item>
-
-            <ion-item lines="none">
-              <ion-label position="stacked">Apellido Materno: </ion-label>
-              <ion-input name="second_surname" type="text" placeholder="Ingresa tu apellido" [(ngModel)]="user.second_surname"></ion-input>
-            </ion-item>
    
             <ion-item lines="none">
               <ion-label position="stacked">Correo: </ion-label>
@@ -43,8 +33,14 @@
               <ion-input name="password" type="password" placeholder="Ingresa tu contraseña" [(ngModel)]="user.password">
               </ion-input>
             </ion-item>
+
+            <ion-item lines="none">
+              <ion-label position="stacked">Confirmar Contraseña:</ion-label>
+              <ion-input name="password_confirmation" type="password" placeholder="Confirma tu contraseña" [(ngModel)]="user.password_confirmation">
+              </ion-input>
+            </ion-item>
    
-            <ion-button type="submit" expand="block">Login</ion-button>
+            <ion-button type="submit" expand="block">Registrarse</ion-button>
           </form>
         </ion-card-content>
       </ion-card>

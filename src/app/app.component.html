@@ -13,28 +13,53 @@
         <ion-list>
           <ion-menu-toggle [routerLink]="['/informacion']" >
             <ion-item button lines="none">
-              <ion-icon slot="start" name="information-circle-outline" color="success"></ion-icon>
+              <ion-icon slot="start" name="information-circle-outline" color="warning"></ion-icon>
               <ion-label>Información</ion-label>
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle [routerLink]="['/promociones']" >
             <ion-item button lines="none">
-              <ion-icon slot="start" name="ticket-outline" color="success"></ion-icon>
+              <ion-icon slot="start" name="ticket-outline" color="warning"></ion-icon>
               <ion-label>Promociones</ion-label>
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle [routerLink]="['/agendar']" >
             <ion-item button lines="none">
-              <ion-icon slot="start" name="calendar-outline" color="success"></ion-icon>
+              <ion-icon slot="start" name="calendar-outline" color="warning"></ion-icon>
               <ion-label>Agendar</ion-label>
             </ion-item>
           </ion-menu-toggle>
           <ion-menu-toggle [routerLink]="['/reservaciones']" >
             <ion-item button lines="none">
-              <ion-icon slot="start" name="time-outline" color="success"></ion-icon>
+              <ion-icon slot="start" name="time-outline" color="warning"></ion-icon>
               <ion-label>Reservaciones</ion-label>
             </ion-item>
           </ion-menu-toggle>
+
+          <ng-container *ngIf="!auth.loggedIn(); else loggedIn">
+            <ion-menu-toggle [routerLink]="['/login']" >
+              <ion-item button lines="none">
+                <ion-icon slot="start" name="person-circle-outline" color="warning"></ion-icon>
+                <ion-label>Iniciar sesión</ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+  
+            <ion-menu-toggle [routerLink]="['/register']">
+              <ion-item button lines="none">
+                <ion-icon slot="start" name="person-add-outline" color="warning"></ion-icon>
+                <ion-label>Registrarse</ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+          </ng-container>
+
+          <ng-template #loggedIn>
+            <ion-menu-toggle (click)="auth.logout()">
+              <ion-item button lines="none">
+                <ion-icon slot="start" name="exit-outline" color="warning"></ion-icon>
+                <ion-label>Salir</ion-label>
+              </ion-item>
+            </ion-menu-toggle>
+          </ng-template>
         </ion-list>
       </ion-content>
     </ion-menu>
