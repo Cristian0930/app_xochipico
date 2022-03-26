@@ -1,16 +1,16 @@
-<app-header [titulo]="titulo || 'Información'"></app-header>
+<app-header [titulo]="'Información'"></app-header>
 
 <ion-content>
     <div id="container">
-      <ion-card>
-        <img src="../assets/images/xochi1.jpeg" />
+      <ion-card *ngFor="let post of posts;">
+        <img src="{{post.url_image}}" />
         <ion-card-header>
-          <ion-card-title>Xochipico un Lugar Familiar</ion-card-title>
+          <ion-card-title>{{ post.title }}</ion-card-title><br>
+          <ion-badge color="primary">{{ post.category.name }}</ion-badge>
         </ion-card-header>
       
         <ion-card-content>
-          Es un lugar amplio para todo tipo de eventos, si requiere mas información favor de 
-          contactar al propietario a este número 271 123 4567.
+          {{ post.body }}
         </ion-card-content>
       </ion-card>
     </div>

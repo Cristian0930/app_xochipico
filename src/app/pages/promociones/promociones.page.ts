@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Post } from 'src/app/interfaces/post';
+import { PublicacionesService } from 'src/app/services/publicaciones.service';
 
 @Component({
   selector: 'app-promociones',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PromocionesPage implements OnInit {
 
-  constructor() { }
+  posts: Post[] = [];
+
+  constructor(private postsService: PublicacionesService) { }
 
   ngOnInit() {
+    this.promociones();
+  }
+
+  promociones() {
+    this.postsService.filter(1).subscribe(
+      resp => {
+        console.log(resp);
+        this.posts = resp;
+        
+      }, error => {
+        console.log(error);
+        
+      }
+    )
   }
 
 }

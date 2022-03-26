@@ -16,4 +16,8 @@ export class PublicacionesService {
   obtenerPosts(): Observable<Post[]>{
     return this._http.get<Post[]>(`${this.apiUrl}posts`);
   }
+
+  filter(id: number): Observable<Post[]> {
+    return this._http.get<Post[]>(`${this.apiUrl}filter/${id}`);
+  }
 }

@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class RegisterPage implements OnInit {
 
-  loading: any;
+  loading: HTMLIonLoadingElement;
 
   user: UserRequest = {
     name: '',
@@ -21,36 +21,45 @@ export class RegisterPage implements OnInit {
 
   constructor(
     private AuthService : AuthService,
-    public alertController: AlertController,
-    public loadingController: LoadingController
-    ) { }
+    public loadingController: LoadingController,
+    public alertController: AlertController
+  ) { }
 
   ngOnInit() {
   }
 
   register() {
+
+    this.presentLoading();
     
     this.AuthService.register(this.user).subscribe(
       resp => {
         console.log(resp);
-        // todo bien        
-        this.alerta('Usuario registrado', 'Ya puedes iniciar sesión');
+        this.loading.dismiss();
+        this.presentAlert('Usuario creado', 'Ya puedes iniciar sesión');
       }, error => {
-        console.log(error);
-        // todo mal
-        this.alerta('Algo salio mal', 'no se pudo registrar el usuario');
+        this.loading.dismiss();
+        this.presentAlert('Algo salió mal', 'intentalo más tarde');
       }
     )
   }
 
-  async alerta(message: string, body: string) {
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      message: 'Cargando...'
+    });
+
+    await this.loading.present();
+  }
+
+  async presentAlert(header: string, subHeader: string) {
     const alert = await this.alertController.create({
-      cssClass: 'my-custom-class',
-      header: message,
-      message: body,
+      backdropDismiss: false,
+      header,
+      subHeader,
+      buttons: ['OK']
     });
 
     await alert.present();
   }
-
 }
