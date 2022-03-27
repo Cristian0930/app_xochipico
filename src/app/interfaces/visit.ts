@@ -1,4 +1,5 @@
 export interface VisitRequest {
+    id?: number,
     name:       string;
     date:       Date;
     persons:    string;

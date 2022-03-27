@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { VisitRequest } from 'src/app/interfaces/visit';
 import { AgendacionesService } from 'src/app/services/agendaciones.service';
 
 @Component({
-  selector: 'app-agendar',
-  templateUrl: './agendar.page.html',
-  styleUrls: ['./agendar.page.scss'],
+  selector: 'app-agendar-edit',
+  templateUrl: './agendar-edit.page.html',
+  styleUrls: ['./agendar-edit.page.scss'],
 })
-export class AgendarPage implements OnInit {
+export class AgendarEditPage implements OnInit {
 
   loading: HTMLIonLoadingElement;
   
   visit: VisitRequest = {
+    'id': 0,
     'name': '',
     'date': new Date,
     'persons': '0',
@@ -22,21 +24,35 @@ export class AgendarPage implements OnInit {
   constructor(
     private agendar: AgendacionesService,
     public alertController: AlertController,
-    public loadingController: LoadingController
+    public loadingController: LoadingController,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    const params = this.activatedRoute.snapshot.paramMap.get("id");
+    console.log(params);
+
+    this.agendar.show(params).subscribe(
+      resp => {
+        console.log(resp);
+        this.visit = resp;
+      }, error => {
+        console.log(error);
+        
+      }
+    )
   }
 
-  guardar() {
+  actualizar() {
 
     this.presentLoading();
 
-    this.agendar.saveVisit(this.visit).subscribe(
+    this.agendar.update(this.visit.id, this.visit).subscribe(
       resp => {
         console.log(resp);
         this.loading.dismiss();
-        this.presentAlert('Visita guardada', '');
+        this.presentAlert('Visita actualizada', '');
         
       }, error => {
         console.log(error);
@@ -74,7 +90,7 @@ export class AgendarPage implements OnInit {
         {
           text: 'Sí',
           handler: () => {
-            this.guardar();
+            this.actualizar();
           }
         },
         {
@@ -86,4 +102,5 @@ export class AgendarPage implements OnInit {
 
     await alert.present();
   }
+
 }

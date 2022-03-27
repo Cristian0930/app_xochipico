@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: ReservacionesPage
+  },
+  {
+    path: 'agendar-edit/:id',
+    loadChildren: () => import('../agendar-edit/agendar-edit.module').then( m => m.AgendarEditPageModule),
   }
 ];
 

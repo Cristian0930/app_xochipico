@@ -20,4 +20,16 @@ export class AgendacionesService {
   getVisit(): Observable<VisitResponse[]> {
     return this.http.get<VisitResponse[]>(`${this.apiUrl}visits`);
   }
+
+  delete(id: number | string | undefined): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}visits/${id}`);
+  }
+
+  update(id: number | string |undefined, visit: VisitRequest): Observable<VisitResponse> {
+    return this.http.put<VisitResponse>(`${this.apiUrl}visits/${id}`, visit);
+  }
+
+  show(id: number | string |undefined): Observable<VisitResponse> {
+    return this.http.get<VisitResponse>(`${this.apiUrl}visits/${id}`);
+  }
 }

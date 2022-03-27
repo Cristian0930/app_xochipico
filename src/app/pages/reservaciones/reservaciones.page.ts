@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { VisitResponse } from 'src/app/interfaces/visit';
 import { AgendacionesService } from 'src/app/services/agendaciones.service';
 
@@ -9,9 +10,15 @@ import { AgendacionesService } from 'src/app/services/agendaciones.service';
 })
 export class ReservacionesPage implements OnInit {
 
+  loading: HTMLIonLoadingElement;
+
   visitas: VisitResponse[] = [];
 
-  constructor(private agendar: AgendacionesService) { }
+  constructor(
+    private agendar: AgendacionesService,
+    public alertController: AlertController,
+    public loadingController: LoadingController
+  ) { }
 
   ngOnInit() {
     this.obtenerVisitas();
@@ -29,4 +36,64 @@ export class ReservacionesPage implements OnInit {
     )
   }
 
+  borrarVisita(id: any) {
+
+    this.presentLoading();
+
+    this.agendar.delete(id).subscribe(
+      resp => {
+        console.log(resp);
+        this.loading.dismiss();
+        this.presentAlert('Visita borrada', '');
+        this.obtenerVisitas();
+        
+      }, error => {
+        console.log(error);
+        this.loading.dismiss();
+        this.presentAlert('Algo salió mal', 'intentalo más tarde');
+        
+      }
+    )
+  }
+
+
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
+      message: 'Cargando...'
+    });
+
+    await this.loading.present();
+  }
+
+  async presentAlert(header: string, subHeader: string) {
+    const alert = await this.alertController.create({
+      backdropDismiss: false,
+      header,
+      subHeader,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  async presentAlertMultipleButtons (id: any) {
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: '¿Estás seguro?',
+      buttons: [
+        {
+          text: 'Sí',
+          handler: () => {
+            this.borrarVisita(id);
+          }
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 }

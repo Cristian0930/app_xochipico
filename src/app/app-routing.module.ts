@@ -41,6 +41,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule),
     canActivate: [IsLoggedGuard]
   }
+
 ];
 
 @NgModule({

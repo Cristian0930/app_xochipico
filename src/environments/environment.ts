@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://192.168.8.106:8000/api/'
+  apiUrl: 'https://whispering-wildwood-32923.herokuapp.com/api/'
 };
 
 /*
